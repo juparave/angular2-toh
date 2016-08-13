@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit }  from '@angular/core';
+import { Router }             from '@angular/router';
 
-import { Hero } from './hero';
-import { HeroDetailComponent } from './hero-detail.component';
+import { Hero }                 from './hero';
 import { HeroService } from './hero.service';
+
 
 @Component({
   selector: 'my-heroes',
   templateUrl: 'app/heroes.component.html',
   styleUrls: ['app/heroes.component.css'],
-  directives: [HeroDetailComponent]
 })
 export class HeroesComponent implements OnInit {
-  title = 'Tour of Heroes';
+  public heroes: Hero[];
   selectedHero: Hero;
   addingHero = false;
-  public heroes: Hero[];
   error: any;
 
   constructor(

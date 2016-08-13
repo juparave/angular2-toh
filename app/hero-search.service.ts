@@ -5,6 +5,7 @@ import { Hero } from './hero';
 
 @Injectable()
 export class HeroSearchService {
+    
     constructor(private _http: Http) { }
 
     search(term: string) {

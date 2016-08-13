@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+
 import 'rxjs/add/operator/toPromise';
 
 import { Hero } from './hero';
@@ -7,7 +8,8 @@ import { Hero } from './hero';
 
 @Injectable()
 export class HeroService {
-    private heroesUrl = 'app/heroes';
+    
+    private heroesUrl = 'app/heroes';    // URL to web api
 
     constructor(private _http: Http) { }
 
@@ -17,14 +19,13 @@ export class HeroService {
     }
 
     getHeroes() {
-        // return Promise.resolve(HEROES);
         return this._http.get(this.heroesUrl)
             .toPromise()
             .then(response => response.json().data as Hero[])
             .catch(this.handleError);
     }
 
-    // new hero
+    // add new hero
     private post(hero: Hero): Promise<Hero> {
         let headers = new Headers({
             'Content-Type': 'application/json'});

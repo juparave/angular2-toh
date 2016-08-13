@@ -10,14 +10,18 @@ import { HeroService } from './hero.service';
     styleUrls: ['app/hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit, OnDestroy {
-    @Input() hero: Hero;
-    @Output() close = new EventEmitter();
+    @Input()
+    hero: Hero;
+    @Output()
+    close = new EventEmitter();
     error: any;
     sub: any;
     navigated = false; // true if navigated here
 
-    constructor(private heroService: HeroService,
-                private route: ActivatedRoute) { }
+    constructor(
+        private heroService: HeroService,
+        private route: ActivatedRoute) {
+    }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {

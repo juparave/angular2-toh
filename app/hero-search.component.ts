@@ -9,25 +9,25 @@ import { Hero } from './hero';
 @Component({
     selector: 'hero-search',
     templateUrl: 'app/hero-search.component.html',
+    styleUrls: ['app/hero-search.component.css'],
     providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {
     heroes: Observable<Hero[]>;
-    searchSubject = new Subject<string>();
+    private searchTerms = new Subject<string>();
 
     constructor(
         private _heroSearchService: HeroSearchService,
         private _router: Router) { }
 
     // Push search term into the observable stream
-    search(term: string) { this.searchSubject.next(term); }
+    search(term: string) { this.searchTerms.next(term); }
 
     ngOnInit() {
-        this.heroes = this.searchSubject
-                .asObservable()
-                .debounceTime(300)
-                .distinctUntilChanged()
-                .switchMap(term => term
+        this.heroes = this.searchTerms
+                .debounceTime(300)              // wait for 300ms pause in events
+                .distinctUntilChanged()         // ignore if next search term is same as previous
+                .switchMap(term => term         // switch to new observable each time
                     // return the http search observable
                     ? this._heroSearchService.search(term)
                     // or the observable of empty heroes if no search term
